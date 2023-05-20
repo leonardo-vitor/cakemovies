@@ -27,8 +27,23 @@ App::uses('Controller', 'Controller');
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @package		app.Controller
- * @link		https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package        app.Controller
+ * @link        https://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller {
+class AppController extends Controller
+{
+    public function str_slug(string $string): string
+    {
+        $string = filter_var(mb_strtolower($string), FILTER_SANITIZE_STRIPPED);
+        $formats = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜüÝÞßàáâãäåæçèéêëìíîïðñòóôõöøùúûýýþÿRr"!@#$%&*()_-+={[}]/?;:.,\\\'<>°ºª';
+        $replace = 'aaaaaaaceeeeiiiidnoooooouuuuuybsaaaaaaaceeeeiiiidnoooooouuuyybyRr                                 ';
+
+        $slug = str_replace(["-----", "----", "---", "--"], "-",
+            str_replace(" ", "-",
+                trim(strtr(utf8_decode($string), utf8_decode($formats), $replace))
+            )
+        );
+
+        return $slug;
+    }
 }
