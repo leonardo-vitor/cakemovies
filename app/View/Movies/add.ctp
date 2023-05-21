@@ -33,7 +33,8 @@
 
     echo $this->Form->file("cover", [
         "accept" => "image/png, image/jpeg",
-        "class" => "form-control mb-3"
+        "class" => "form-control mb-3",
+        "required" => true
     ]);
 
     echo $this->Form->input("synopsis", [

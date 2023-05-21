@@ -45,6 +45,11 @@ class CategoriesController extends AppController
         if ($this->request->is("post")) {
             $data = (object)$this->request->data["Category"];
 
+            if ($this->Category->find("count", ["conditions" => "Category.name = '{$data->name}'"]) >= 1) {
+                $this->Flash->set("Já existe uma categoria com o nome informado", ["params" => ["class" => "warning", "bs" => true]]);
+                return;
+            }
+
             if (!$this->Category->save($data)) {
                 $this->Flash->set("Não foi possível salvar sua categoria", ["params" => ["class" => "warning", "bs" => true]]);
                 return;
@@ -65,6 +70,12 @@ class CategoriesController extends AppController
             $this->request->data = $this->Category->findById($id);
         } else {
             $data = (object)$this->request->data["Category"];
+
+            if ($this->Category->find("count", ["conditions" => "Category.name = '{$data->name}' AND Category.id != {$data->id}"]) >= 1) {
+                $this->Flash->set("Já existe uma categoria com o nome informado", ["params" => ["class" => "warning", "bs" => true]]);
+                return;
+            }
+
             if (!$this->Category->save($data)) {
                 $this->Flash->set("Não foi possível salvar sua categoria", ["params" => ["class" => "warning", "bs" => true]]);
                 return;

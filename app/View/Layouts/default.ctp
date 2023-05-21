@@ -38,5 +38,9 @@
     <footer>
 
     </footer>
+
+    <?php
+    echo $this->Html->script('bootstrap.bundle.min');
+    ?>
 </body>
 </html>

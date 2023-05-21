@@ -73,6 +73,11 @@ class MoviesController extends AppController
         if ($this->request->is("post")) {
             $data = (object)$this->request->data["Movie"];
 
+            if ($this->Movie->find("count", ["conditions" => "Movie.title = '{$data->title}'"]) >= 1) {
+                $this->Flash->set("Já existe um filme com o título informado", ["params" => ["class" => "warning", "bs" => true]]);
+                return;
+            }
+
             if (empty($data->cover["name"])) {
                 $this->Flash->set("Selecione a foto de capa", ["params" => ["class" => "warning", "bs" => true]]);
                 return;
@@ -119,6 +124,11 @@ class MoviesController extends AppController
             $this->request->data = $this->Movie->findById($id);
         } else {
             $data = (object)$this->request->data["Movie"];
+
+            if ($this->Movie->find("count", ["conditions" => "Movie.title = '{$data->title}' AND Movie.id != {$data->id}"]) >= 1) {
+                $this->Flash->set("Já existe um filme com o título informado", ["params" => ["class" => "warning", "bs" => true]]);
+                return;
+            }
 
             $oldCover = null;
             if (!empty($data->new_cover["name"])) {
