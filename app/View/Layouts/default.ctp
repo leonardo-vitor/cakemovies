@@ -18,7 +18,7 @@
 		echo $this->fetch('script');
 	?>
 </head>
-<body>
+<body style="background-color: #f7f7f7;">
     <nav class="bg-success-subtle py-4">
         <div class="container-fluid">
             <a class="text-decoration-none text-success" href="<?= Router::url("/", true) ?>">

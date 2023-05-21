@@ -6,7 +6,7 @@
  * to use (in this case, /app/View/Pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'movies', 'action' => 'home', 'home'));
-	Router::connect('/lista-de-filmes', array('controller' => 'movies', 'action' => 'list', 'list'));
+	Router::connect('/informacoes/:id', array('controller' => 'movies', 'action' => 'view'));
 /**
  * ...and connect the rest of 'Pages' controller's URLs.
  */

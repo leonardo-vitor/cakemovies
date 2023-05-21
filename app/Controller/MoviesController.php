@@ -2,18 +2,36 @@
 
 App::uses('AppController', 'Controller');
 
+/**
+ *
+ */
 class MoviesController extends AppController
 {
+    /**
+     * @var string
+     */
     public $name = "Movies";
+    /**
+     * @var string[]
+     */
     public $helpers = ["Html", "Form", "Text"];
+    /**
+     * @var string[]
+     */
     public $components = ["Paginator"];
+    /**
+     * @var array
+     */
     public $paginate = [
         "limit" => 6,
         "order" => [
-            "Movie.create" => "asc"
+            "Movie.created_at" => "asc"
         ]
     ];
 
+    /**
+     * @return void
+     */
     public function home()
     {
         $this->Paginator->settings = $this->paginate;
@@ -22,6 +40,20 @@ class MoviesController extends AppController
         $this->set("movies", $data);
     }
 
+    /**
+     * @param $id
+     *
+     * @return void
+     */
+    public function view(): void
+    {
+        $id = $this->request->params["id"];
+        $this->set("movie", $this->Movie->findById($id));
+    }
+
+    /**
+     * @return void
+     */
     public function list()
     {
         $this->Paginator->settings = $this->paginate;
@@ -30,6 +62,9 @@ class MoviesController extends AppController
         $this->set("movies", $data);
     }
 
+    /**
+     * @return void
+     */
     public function add()
     {
         $categories = $this->Movie->Category->find("list");
@@ -71,6 +106,10 @@ class MoviesController extends AppController
         }
     }
 
+    /**
+     * @param $id
+     * @return void
+     */
     public function edit($id = null)
     {
         $categories = $this->Movie->Category->find("list");
@@ -109,13 +148,17 @@ class MoviesController extends AppController
             }
 
             $this->Flash->set("Filme atualizado com sucesso", ["params" => ["class" => "success", "bs" => true]]);
-            if (!empty($oldCover)  && file_exists($oldCover)) {
+            if (!empty($oldCover) && file_exists($oldCover)) {
                 unlink($oldCover);
             }
             $this->redirect(["action" => "list"]);
         }
     }
 
+    /**
+     * @param $id
+     * @return void
+     */
     public function delete($id): void
     {
         if (!$this->request->is("post")) {

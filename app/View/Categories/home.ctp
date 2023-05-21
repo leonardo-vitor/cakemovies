@@ -1,48 +1,40 @@
 <main class="container mb-5">
     <div class="d-flex justify-content-between mb-5">
-        <h1>Filmes cadastrados</h1>
+        <h1>Categorias Cadastradas</h1>
 
         <div>
             <?= $this->Html->link(
-                "Catálogo de filmes",
-                ["controller" => "movies", "action" => "home"],
-                ["class" => "btn btn-success"]
-            ); ?>
-
-            <?= $this->Html->link(
-                "Adicionar filme",
-                ["controller" => "movies", "action" => "add"],
+                "Lista de filmes",
+                ["controller" => "movies", "action" => "list"],
                 ["class" => "btn btn-primary"]
             ); ?>
 
             <?= $this->Html->link(
-                "Categorias",
-                ["controller" => "categories", "action" => "home"],
+                "Adicionar categoria",
+                ["controller" => "categories", "action" => "add"],
                 ["class" => "btn btn-secondary"]
             ); ?>
         </div>
     </div>
 
-    <?php if ($movies): ?>
+    <?php if ($categories): ?>
         <div class="table-responsive">
             <table class="table table-borderless table-hover table-striped">
                 <thead class="bg-secondary-subtle">
                 <tr>
+                    <th>ID</th>
                     <th>Categoria</th>
-                    <th>Título</th>
-                    <th>Sinopse</th>
                     <th>Ação</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($movies as $movie): ?>
+                <?php foreach ($categories as $category): ?>
                     <tr>
-                        <td><?= $movie["Category"]["name"] ?></td>
-                        <td><?= $this->Text->truncate($movie["Movie"]["title"], 75) ?></td>
-                        <td><?= $this->Text->truncate($movie["Movie"]["synopsis"], 75) ?></td>
+                        <td><?= $category["Category"]["id"] ?></td>
+                        <td><?= $category["Category"]["name"] ?></td>
                         <td>
-                            <?= $this->Html->link("Editar", ["action" => "edit", $movie["Movie"]["id"]], ["class" => "btn btn-info btn-sm"]) ?>
-                            <?= $this->Form->postLink("Apagar", ["action" => "delete", $movie["Movie"]["id"]], ["confirm" => "Você tem certeza ?", "class" => "btn btn-danger btn-sm"]) ?>
+                            <?= $this->Html->link("Editar", ["action" => "edit", $category["Category"]["id"]], ["class" => "btn btn-info btn-sm"]) ?>
+                            <?= $this->Form->postLink("Apagar", ["action" => "delete", $category["Category"]["id"]], ["confirm" => "Você tem certeza ?", "class" => "btn btn-danger btn-sm"]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -67,9 +59,10 @@
         <?php endif; ?>
     <?php else: ?>
         <div class="alert alert-light" role="alert">
-            Ainda não foram adicionados filmes ao
-            catálogo, <?= $this->Html->link("clique aqui", ["controller" => "movies", "action" => "add"]) ?> para
+            Ainda não foram adicionados categorias ao
+            catálogo, <?= $this->Html->link("clique aqui", ["controller" => "categories", "action" => "add"]) ?> para
             adicionar.
         </div>
     <?php endif; ?>
+
 </main>

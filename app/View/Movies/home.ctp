@@ -15,10 +15,14 @@
         <div class="row">
             <?php foreach ($movies as $movie): ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-                    <a href="">
+                    <a href="<?= Router::url("/informacoes/{$movie["Movie"]["id"]}", true) ?>" class="text-decoration-none">
                         <img src="<?= Router::url("/{$movie["Movie"]["cover"]}", true) ?>"
                              title="<?= $movie["Movie"]["title"] ?>" alt="<?= $movie["Movie"]["title"] ?>"
-                             class="mw-100">
+                             class="mw-100 rounded">
+
+                        <p class="text-one-line text-black py-1" title="<?= $movie["Movie"]["title"] ?>">
+                            <?= $movie["Movie"]["title"] ?>
+                        </p>
                     </a>
 
                 </div>
