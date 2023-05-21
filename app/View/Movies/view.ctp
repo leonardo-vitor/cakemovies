@@ -12,8 +12,8 @@
     </div>
 
     <?php if ($movie): ?>
-        <div class="row">
-            <div class="col-12 col-md-4 col-lg-3">
+        <div class="row justify-content-center justify-content-md-between">
+            <div class="col-8 col-sm-6 col-md-4 col-lg-3 mb-4">
                 <a href="" class="text-decoration-none">
                     <img src="<?= Router::url("/{$movie["Movie"]["cover"]}", true) ?>"
                          title="<?= $movie["Movie"]["title"] ?>" alt="<?= $movie["Movie"]["title"] ?>"
@@ -21,10 +21,10 @@
                 </a>
             </div>
 
-            <div class="col-12 col-md-8 col-lg-9">
+            <div class="col-12 col-md-8 col-lg-9 px-4">
                 <h2><?= $movie["Movie"]["title"] ?></h2>
                 <p>
-                    <button class="btn btn-sm btn-info">
+                    <button class="btn btn-sm btn-info mb-1 mt-2">
                         <?= $movie["Category"]["name"] ?>
                     </button>
                 </p>
